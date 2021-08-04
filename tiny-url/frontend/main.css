@@ -1,0 +1,18 @@
+.quick-container {
+  border: 1px solid #111;
+  background-color: #9bffd8;
+  margin-top: 2%;
+  padding: 2%;
+  width: 450px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom: auto;
+}
+
+.alert-success-alt {
+  border-color: #19B99A;
+  background: #20A286;
+  color: #fff; 
+  word-wrap: break-word; 
+
+}
