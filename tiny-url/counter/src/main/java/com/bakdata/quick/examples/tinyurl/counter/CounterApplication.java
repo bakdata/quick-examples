@@ -1,20 +1,21 @@
-package com.bakdata.quick.examples;
+package com.bakdata.quick.examples.tinyurl.counter;
 
 import com.bakdata.kafka.KafkaStreamsApplication;
 import java.util.Arrays;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Produced;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class CounterApplication extends KafkaStreamsApplication {
+    private static final Logger logger = LoggerFactory.getLogger(CounterApplication.class);
 
     public static void main(final String[] args) {
-        log.info("Starting counter application with args:{}", Arrays.toString(args));
+        logger.info("Starting counter application with args:{}", Arrays.toString(args));
         KafkaStreamsApplication.startApplication(new CounterApplication(), args);
     }
 

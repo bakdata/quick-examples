@@ -1,4 +1,4 @@
-package com.bakdata.quick.examples;
+package com.bakdata.quick.examples.tinyurl.counter;
 
 import static net.mguenther.kafka.junit.EmbeddedKafkaCluster.provisionWith;
 import static net.mguenther.kafka.junit.EmbeddedKafkaClusterConfig.defaultClusterConfig;
@@ -54,7 +54,7 @@ class CounterApplicationIntegrationTest {
       Kafka is caching the count. You need to remove the cache manually
       rm -rf /tmp/kafka-streams/tiny-url-counter-input
      */
-    void shouldWaitForRecordsToBePublished() throws Exception {
+    void shouldWaitForRecordsToBePublished() throws InterruptedException {
         final List<KeyValue<String, String>> records =
                 List.of(new KeyValue<>("foo", ""), new KeyValue<>("foo", ""));
 

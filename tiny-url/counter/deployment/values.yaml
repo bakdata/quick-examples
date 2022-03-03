@@ -1,0 +1,15 @@
+replicaCount: 1
+nameOverride: tiny-url-counter-app
+image: us.gcr.io/d9p-quick/demo/tiny-url-counter
+imageTag: 0.0.1
+imagePullPolicy: Always
+streams:
+  brokers: k8kafka-cp-kafka.infrastructure:9092
+  schemaRegistryUrl: http://k8kafka-cp-schema-registry.infrastructure:8081
+  inputTopics: track-fetcher
+  outputTopic: count-fetcher
+  config:
+    replication.factor: 1
+prometheus:
+  jmx:
+    enabled: false

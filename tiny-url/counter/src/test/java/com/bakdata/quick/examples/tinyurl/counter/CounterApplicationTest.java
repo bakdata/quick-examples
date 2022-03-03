@@ -1,4 +1,4 @@
-package com.bakdata.quick.examples;
+package com.bakdata.quick.examples.tinyurl.counter;
 
 import com.bakdata.fluent_kafka_streams_tests.TestTopology;
 import java.util.List;
@@ -18,7 +18,7 @@ class CounterApplicationTest {
     @BeforeEach
     void init() {
         this.app = createCounterApplication();
-        this.testTopology = new TestTopology(app::createTopology, app.getKafkaProperties());
+        this.testTopology = new TestTopology(this.app::createTopology, this.app.getKafkaProperties());
         this.testTopology.start();
     }
 
