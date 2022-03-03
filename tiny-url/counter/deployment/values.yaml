@@ -6,8 +6,8 @@ imagePullPolicy: Always
 streams:
   brokers: k8kafka-cp-kafka.infrastructure:9092
   schemaRegistryUrl: http://k8kafka-cp-schema-registry.infrastructure:8081
-  inputTopics: track-fetcher
-  outputTopic: count-fetcher
+  inputTopics: track-fetch
+  outputTopic: count-fetch
   config:
     replication.factor: 1
 prometheus:

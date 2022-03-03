@@ -1,7 +1,6 @@
 package com.bakdata.quick.examples.tinyurl.counter;
 
 import com.bakdata.kafka.KafkaStreamsApplication;
-import java.util.Arrays;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.Consumed;
@@ -15,12 +14,13 @@ public class CounterApplication extends KafkaStreamsApplication {
     private static final Logger logger = LoggerFactory.getLogger(CounterApplication.class);
 
     public static void main(final String[] args) {
-        logger.info("Starting counter application with args:{}", Arrays.toString(args));
+        logger.info("Starting counter application");
         KafkaStreamsApplication.startApplication(new CounterApplication(), args);
     }
 
     @Override
     public void buildTopology(final StreamsBuilder builder) {
+        logger.info("Setting input topic: {}", this.getInputTopic());
 
         final KStream<String, String> inputStream =
                 builder.stream(this.getInputTopic(), Consumed.with(Serdes.String(), Serdes.String()));
