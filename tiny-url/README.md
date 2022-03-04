@@ -1,100 +1,146 @@
 # TinyURL
 
-TinyURL is an application that shortens any given URL to a tiny one. Shortened URLs are quite helpful, for example, for people posting on Twitter. This tutorial shows how to implement your URL shortening web service app with Quick .
+TinyURL is an application that shortens any given URL to a tiny one. For example, shortening URLs are pretty helpful for
+people posting on Twitter. This tutorial shows a step-by-step guide on how to run your TinyURL application with Quick.
 
-## Quick
+## Prerequisite
+- You should have a Quick instance up and running.
+- You should have [quick-cli](https://github.com/bakdata/quick-cli) installed and initialized.
+    ```sh
+    quick context create --host <HOST_ADDRESS> --key <X_API_KEY>
+    ```
+- Clone the repository [quick-examples](https://github.com/bakdata/quick-examples).
+- Add [streams-bootsrap helm chart version 1.9.0](https://github.com/bakdata/streams-bootstrap/tree/1.9.0/charts/streams-app)
+to your helm repository:
+  ```shell
+  helm repo add streams-bootstrap https://raw.githubusercontent.com/bakdata/streams-bootstrap/1.9.0/charts
+  helm repo update
+  ```
 
-To be able to use your tiny url app you need to create your project first.
-To do that, open your terminal and initialize quick with the given `$QUICK_HOST` and `$KEY`.
-```sh
-quick context create 
-```
-Use the quick-cli to create a new topic in wich all token, url pairs will be stored with the command:
-```sh
-quick topic create tiny-url --key string --value string --immutable
-```
-The topic is immutable, that means that there will be no two keys that are the same.
+## Setup and Installation
 
-In order to count how many times someone fetched our url we use the quick counter application. To use it we create input and output topics.
-The input topic we create with the command:
-```sh
-quick topic create track-fetch --key string --value string
-```
-And the output topic with the command:
-```sh
-quick topic create count-fetch --key string --value long 
-```
-We deploy the counter application with the following comand:
-```sh
-quick app deploy tiny-url-counter \
---registry us.gcr.io/d9p-quick/demo \
---image tiny-url-counter \
---tag 1.0.0 \
---args input-topics=track-fetch output-topic=count-fetch productive=false 
+1. Use the quick-cli to create a new topic called `tiny-url`. This topic stores the tokens as its key along with the
+   URLs as its value.
 
-```
-Then create a new gateway using this command:
-```sh
-quick gateway create tinyurl-gateway
-```
-Apply your GraphQL schema on the tinyurl-gateway by using the following command:
-```sh
-quick gateway apply tinyurl-gateway -f schema.gql
-```
-The schema contains the query structure, which you will see on GraphQL.
-```graphql
-type Query {
-  fetchURL(token: String): TinyUrl
-}
-type TinyUrl {
-  url: String @topic(name: "tiny-url", keyArgument: "token")
-  count: Long @topic(name: "count-fetch", keyArgument: "token")
-}
-```
+    ```sh
+    quick topic create tiny-url --key string --value string --immutable
+    ```
+   Note the `--immutable` flag. This flag determines that the topic is immutable, so there will be no duplicate keys.
 
-**NOTE**: You can see those commands in commands.sh file.
+2. In this example, we created a simple Kafka-streams application to create a count over the fetched URLs by the users. You
+   can find the source code of the counter
+   application [here](https://github.com/bakdata/quick-examples/tree/main/tiny-url/counter). The Kafka-streams
+   application topology is demonstrated in the diagram below. The topology uses a source topic called `track-fetcher`
+   and a sink topic called `count-fetch`. </br>
+   <p align="center">
+    <img src="https://github.com/bakdata/quick-examples/blob/main/tiny-url/counter/TinyUrlTopology.png" />
+   </p>
+   You can create both topics with the following commands:
+
+   ```sh
+   quick topic create track-fetch --key string --value string
+   quick topic create count-fetch --key string --value long 
+   ```
+
+3. Now that we created the topics it is time to deploy
+   the [counter](https://github.com/bakdata/quick-examples/tree/main/tiny-url/counter) application:
+   ```sh
+   helm upgrade --install \
+       --kube-context <YOUR_CONTEXT> \
+       --namespace <YOUR_NAMESPACE> \
+       --set streams.brokers=<KAFKA_BROKER> \
+       --set streams.schemaRegistryUrl=<SCHEMA_REGISTRY_URL> \
+       --values deployment/values.yaml \
+       tiny-url-counter-app streams-bootstrap/streams-app
+   ```
+
+4. Then create a new gateway using this command:
+
+   ```sh
+   quick gateway create tiny-url-gateway
+   ```
+   **NOTE:** When you create a gateway, it might take some time until the gateway is running.
+
+5. Apply the [GraphQL schema](https://github.com/bakdata/quick-examples/blob/main/tiny-url/schema.gql) on
+   the `tiny-url-gateway` by using the following command:
+
+   ```sh
+   quick gateway apply tiny-url-gateway -f schema.gql
+   ```
+
+   **NOTE**: You can find all these commands
+   in `commands.sh` [file](https://github.com/bakdata/quick-examples/blob/main/tiny-url/commands.sh).
 
 ## Frontend
 
-We use a form for creating key-value pairs with input fields for the word and the url and one more for fetching the saved url in the word.
+We use a form for creating key-value pairs with input fields for the word and the URL and one more for fetching the
+saved URL in the word.
 
 ## Backend
-With every click on the Submit button happens an ingest in the tinyURL topic, that can also be written with this command:
+
+To ingest a new TinyURL entity (token and URL), you can use the command below:
+
 ```sh
-curl --request POST --url https://$QUICK_HOST/ingest/tiny-url/ \
---header 'content-type: application/json' \
---header "X-API-Key:$KEY" \
---data '{"key": "d9p", "value": "https://www.d9p.io"}' 
+curl --request POST --url "$QUICK_HOST"/ingest/tiny-url/ \
+  --header 'content-type: application/json' \
+  --header "X-API-Key:$API_KEY" \
+  --data '{"key": "d9p", "value": "https://www.d9p.io"}'
 ```
-With every click of the fetch button happens an ingest in the input topic of the counter, that is the same as this:
+
+Now let's simulate a scenario where the user fetches a token. This can be done with the command below:
+
 ```sh
-curl --request POST --url https://$QUICK_HOST/ingest/track-fetch/ \
---header 'content-type: application/json' \
---header "X-API-Key:$KEY" \
---data '{"key": "hey", "value": ""}'
+curl --request POST --url "$QUICK_HOST"/ingest/track-fetch/ \
+  --header 'content-type: application/json' \
+  --header "X-API-Key:$API_KEY" \
+  --data '{"key": "d9p", "value": ""}'
 ```
-Then the counter counts how many times the same key is ingested in the input topic and outputs the number as a value in the output topic.
+
+Then the counter counts how many times the same key is ingested in the input topic and outputs the number as a value in
+the output topic.
 
 ## Results
-In GraphQl we can query our data. We use the gateway_ip.
+
+Imagine a scenario where the users fetched the token `d9p` URL twice. Let's query the data and see the results:
 
 ```graphql
-{
-  fetchURL(token: "d9p") {
+query {
+  fetchCountOfToken(token: "d9p") {
     url
     count
   }
 }
 
 ```
-And the output is:
+
+And the output should be:
+
 ```json
 {
   "data": {
-    "fetchURL": {
+    "fetchCountOfToken": {
       "url": "https://www.d9p.io",
       "count": 2
     }
   }
 }
 ```
+
+## Teardown
+
+To delete all the resources, follow these steps:
+
+1. Delete counter application:
+   ```shell
+   helm uninstall --kube-context <YOUR_CONTEXT> --namespace <YOUR_NAMESPACE> tiny-url-counter-app
+   ```
+2. Delete topics:
+   ```shell
+   quick topic delete tiny-url && \
+   qucik topic delete track-fetch && \
+   quick topic delete count-fetch
+   ```
+3. Delete gateway:
+   ```shell
+   quick gateway delete tiny-url-gateway
+   ```
