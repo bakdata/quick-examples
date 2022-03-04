@@ -42,10 +42,6 @@ helm upgrade --install \
 tiny-url-counter-app streams-bootstrap/streams-app
 ```
 
-You should change the values
-in [values.yaml](https://github.com/bakdata/quick/tree/master/docs/examples/TinyURL/counter/deployment/values.yaml) file
-based on your infrastructure.
-
 To uninstall the application, just run:
 
 ```shell
