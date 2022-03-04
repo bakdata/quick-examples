@@ -14,16 +14,16 @@ public class CounterApplication extends KafkaStreamsApplication {
     private static final Logger logger = LoggerFactory.getLogger(CounterApplication.class);
 
     public static void main(final String[] args) {
-        logger.info("Starting counter application");
+        logger.info("Starting TinyURL counter application");
         KafkaStreamsApplication.startApplication(new CounterApplication(), args);
     }
 
     @Override
     public void buildTopology(final StreamsBuilder builder) {
-        logger.info("Setting input topic: {}", this.getInputTopic());
+        logger.debug("Setting input topic: {}", this.getInputTopics());
 
         final KStream<String, String> inputStream =
-                builder.stream(this.getInputTopic(), Consumed.with(Serdes.String(), Serdes.String()));
+                builder.stream(this.getInputTopics(), Consumed.with(Serdes.String(), Serdes.String()));
 
         inputStream
                 .groupByKey(Grouped.with(Serdes.String(), Serdes.String()))
@@ -34,6 +34,6 @@ public class CounterApplication extends KafkaStreamsApplication {
 
     @Override
     public String getUniqueAppId() {
-        return String.format("tiny-url-counter-%s", this.getInputTopic());
+        return String.format("tiny-url-counter-%s", this.getInputTopics().get(0));
     }
 }

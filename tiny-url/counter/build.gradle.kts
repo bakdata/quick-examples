@@ -1,4 +1,4 @@
-val streamsBootsrapVersion: String by project
+val streamsBootstrapVersion: String by project
 val logbackVersion: String by project
 val slf4jVersion: String by project
 val junitVersion: String by project
@@ -26,7 +26,7 @@ java {
 }
 
 dependencies {
-    implementation(group = "com.bakdata.kafka", name = "streams-bootstrap", version = streamsBootsrapVersion)
+    implementation(group = "com.bakdata.kafka", name = "streams-bootstrap", version = streamsBootstrapVersion)
     implementation(group = "io.confluent", name = "kafka-streams-avro-serde", version = "6.2.2")
 
     // Logging
@@ -61,6 +61,7 @@ tasks.getByName<Test>("test") {
 
 configurations.all {
     exclude(group = "org.apache.logging.log4j", module = "log4j-slf4j-impl")
+    exclude(group = "org.slf4j", module = "slf4j-log4j12")
 }
 
 jib {
