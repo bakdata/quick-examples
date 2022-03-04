@@ -25,7 +25,7 @@ ingested in the `track-fetch` topic. The application creates a count over the ke
 values in the `count-fetch`, representing the number of times users fetched a TinyURL.
 
 <p align="center">
- <img src="https://github.com/bakdata/quick-examples/tree/master/tiny-url/TinyUrlTopology.png" />
+ <img src="https://github.com/bakdata/quick-examples/blob/main/tiny-url/counter/TinyUrlTopology.png" />
 </p>
 
 ## Deployment
