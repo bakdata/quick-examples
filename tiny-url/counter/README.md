@@ -9,8 +9,7 @@ build a Kafka Streams Application please visit the
 ## Prerequisite
 
 - Installed [helm](https://helm.sh/) version 3.x.x
--
-Add [streams-bootsrap helm chart version 1.9.0](https://github.com/bakdata/streams-bootstrap/tree/1.9.0/charts/streams-app)
+-Add [streams-bootsrap helm chart version 1.9.0](https://github.com/bakdata/streams-bootstrap/tree/1.9.0/charts/streams-app)
 to your helm repository:
   ```shell
   helm repo add streams-bootstrap https://raw.githubusercontent.com/bakdata/streams-bootstrap/1.9.0/charts
