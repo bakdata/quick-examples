@@ -34,19 +34,19 @@ The counter application can be deployed using [helm](https://helm.sh/):
 
 ```shell
 helm upgrade --install \
---kube-context <YOUR_CONTEXT> \
---namespace <YOUR_NAMESPACE> \
---set streams.brokers=<KAFKA_BROKER> \
---set streams.schemaRegistryUrl=<SCHEMA_REGISTRY_URL> \
---values deployment/values.yaml \
-tiny-url-counter-app streams-bootstrap/streams-app
+	--kube-context "$QUICK_KUBE_CONTEXT" \
+	--namespace "$QUICK_NAMESPACE" \
+	--set streams.brokers="$KAFKA_BROKER" \
+	--set streams.schemaRegistryUrl="$SR_URL" \
+	--values deployment/values.yaml \
+	tiny-url-counter-app streams-bootstrap/streams-app
 ```
 
 To uninstall the application, just run:
 
 ```shell
 helm uninstall \
---kube-context <YOUR_CONTEXT> \
---namespace <YOUR_NAMESPACE> \
-tiny-url-counter-app
+  --kube-context "$QUICK_KUBE_CONTEXT" \
+  --namespace "$QUICK_NAMESPACE" \
+  tiny-url-counter-app
 ```
