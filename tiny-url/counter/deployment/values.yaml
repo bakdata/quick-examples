@@ -1,0 +1,13 @@
+replicaCount: 1
+nameOverride: tiny-url-counter-app
+image: us.gcr.io/d9p-quick/demo/tiny-url-counter
+imageTag: 0.0.1
+imagePullPolicy: Always
+streams:
+  inputTopics: track-fetch
+  outputTopic: count-fetch
+  config:
+    replication.factor: 1
+prometheus:
+  jmx:
+    enabled: false

@@ -1,6 +1,8 @@
 #!/bin/bash
 
-quick context create 
+helm repo add streams-bootstrap https://raw.githubusercontent.com/bakdata/streams-bootstrap/1.9.0/charts
+
+quick context create --host "$QUICK_HOST" --key "$QUICK_API_KEY"
 
 quick topic create tiny-url --key string --value string --immutable
 
@@ -8,24 +10,24 @@ quick topic create track-fetch --key string --value string
 
 quick topic create count-fetch --key string --value long
 
-quick app deploy test-tiny-counter \
---registry us.gcr.io/d9p-quick/demo \
---image test-tiny-url-counter \
---tag 1.0.0 \
---args input-topics=track-fetch output-topic=count-fetch productive=false 
+helm upgrade --install \
+	--kube-context "$QUICK_KUBE_CONTEXT" \
+	--namespace "$QUICK_NAMESPACE" \
+	--set streams.brokers="$KAFKA_BROKER" \
+	--set streams.schemaRegistryUrl="$SR_URL" \
+	--values deployment/values.yaml \
+	tiny-url-counter-app streams-bootstrap/streams-app
 
 quick gateway create tinyurl-gateway
 
-cat schema.gql
-
 quick gateway apply tinyurl-gateway -f schema.gql
 
-curl --request POST --url https://$QUICK_HOST/ingest/tiny-url/ \
---header 'content-type: application/json' \
---header "X-API-Key:$KEY" \
---data '{"key": "hey", "value": "https://www.d9p.io"}'
+curl --request POST --url "$QUICK_HOST"/ingest/tiny-url/ \
+	--header "content-type: application/json" \
+	--header "X-API-Key: $QUICK_API_KEY" \
+	--data '{"key": "d9p", "value": "https://www.d9p.io"}'
 
-curl --request POST --url https://$QUICK_HOST/ingest/track-fetch/ \
---header 'content-type: application/json' \
---header "X-API-Key:$KEY" \
---data '{"key": "hey", "value": ""}'
+curl --request POST --url "$QUICK_HOST"/ingest/track-fetch/ \
+	--header "content-type: application/json" \
+	--header "X-API-Key: $QUICK_API_KEY" \
+	--data '{"key": "d9p", "value": ""}'

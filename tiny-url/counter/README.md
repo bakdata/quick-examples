@@ -1,28 +1,52 @@
-# Tiny URL Counter Application
+# TinyURL Counter Application
 
-This a simple Kafka Streams Application demonstrating the custom application deployment of quick.
-This application counts the keys of the input topic and writes a key value pair containing the key
-and its count to the output topic.
-Concretely, we want to count the number of tiny-urls (keys) that users are retrieving.
-For more information on how to build a Kafka Streams Application, please visit the 
+This is a simple Kafka Streams Application demonstrating the custom application deployment of quick. This application
+counts the keys of the input topic and writes a key-value pair containing the key and its count to the output topic.
+Concretely, we want to count the number of TinyURLs (keys) that users are retrieving. For more information on how to
+build a Kafka Streams Application please visit the
 [streams-bootstrap repository](https://github.com/bakdata/streams-bootstrap).
 
-## Usage
-The application can be deployed using the `quick-cli` tool. The command for the application deployment:
-```shell
-quick app deploy tiny-url-counter \
---registry us.gcr.io/d9p-quick/demo \
---image tiny-url-counter \
---tag 1.0.0 \
---args input-topics=track-fetch output-topic=count-fetch productive=false
-```
-The input-topic (track-fetch) has a key type of `String` and a value type of `String`.
-The value is always an empty string.
-The output topic has a key of type `String` and value type of `Long`.
-Every time a key-value pair is ingested in the input topic, the output topic gets updated respectively.
-Each pair in the output topic show how many times a user queries a key (tiny-url).
+## Prerequisite
+
+- Installed [helm](https://helm.sh/) version 3.x.x
+- Add [streams-bootsrap helm chart version 1.9.0](https://github.com/bakdata/streams-bootstrap/tree/1.9.0/charts/streams-app)
+to your helm repository:
+  ```shell
+  helm repo add streams-bootstrap https://raw.githubusercontent.com/bakdata/streams-bootstrap/1.9.0/charts
+  ```
+- Up and running Kafka (version 2.8.0) and Quick instance
+
+## Topology
+
+The counter application has a simple topology, demonstrated in the diagram below. The input-topic `track-fetch`
+has a key type of `String` and a value type of `String`. The value is always an empty string. The output
+topic `count-fetch` has a key of type `String` and value type of `Long`. Whenever a user fetches a TinyURL, the key is
+ingested in the `track-fetch` topic. The application creates a count over the keys in the input topic and writes the
+values in the `count-fetch`, representing the number of times users fetched a TinyURL.
+
+<p align="center">
+ <img src="./TinyUrlTopology.png" />
+</p>
 
 ## Deployment
-We use the [Google Jib](https://github.com/GoogleContainerTools/jib) plugin to containerize and create an image of the application. 
-The container is hosted in `us.gcr.io/d9p-quick/demo/tiny-url-counter` 
-and the image version is based on the program version defined in the `build.gradle.kts` file.
+
+The counter application can be deployed using [helm](https://helm.sh/):
+
+```shell
+helm upgrade --install \
+	--kube-context "$QUICK_KUBE_CONTEXT" \
+	--namespace "$QUICK_NAMESPACE" \
+	--set streams.brokers="$KAFKA_BROKER" \
+	--set streams.schemaRegistryUrl="$SR_URL" \
+	--values deployment/values.yaml \
+	tiny-url-counter-app streams-bootstrap/streams-app
+```
+
+To uninstall the application, just run:
+
+```shell
+helm uninstall \
+  --kube-context "$QUICK_KUBE_CONTEXT" \
+  --namespace "$QUICK_NAMESPACE" \
+  tiny-url-counter-app
+```
