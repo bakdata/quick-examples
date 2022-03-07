@@ -2,7 +2,7 @@
 
 helm repo add streams-bootstrap https://raw.githubusercontent.com/bakdata/streams-bootstrap/1.9.0/charts
 
-quick context create --host $QUICK_HOST --key $QUICK_API_KEY
+quick context create --host "$QUICK_HOST" --key "$QUICK_API_KEY"
 
 quick topic create tiny-url --key string --value string --immutable
 
@@ -23,11 +23,11 @@ quick gateway create tinyurl-gateway
 quick gateway apply tinyurl-gateway -f schema.gql
 
 curl --request POST --url "$QUICK_HOST"/ingest/tiny-url/ \
-	--header 'content-type: application/json' \
+	--header "content-type: application/json" \
 	--header "X-API-Key: $QUICK_API_KEY" \
 	--data '{"key": "d9p", "value": "https://www.d9p.io"}'
 
 curl --request POST --url "$QUICK_HOST"/ingest/track-fetch/ \
-	--header 'content-type: application/json' \
+	--header "content-type: application/json" \
 	--header "X-API-Key: $QUICK_API_KEY" \
 	--data '{"key": "d9p", "value": ""}'
