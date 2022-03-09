@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    var QUICK_HOST = "demo.d9p.io"
+    var QUICK_HOST = ""
     var KEY = ""
     var ingest_ip = "https://" + QUICK_HOST + "/ingest/tiny-url" // set your ingest ip
     var count_ingest_ip = "https://" + QUICK_HOST + "/ingest/track-fetch"
