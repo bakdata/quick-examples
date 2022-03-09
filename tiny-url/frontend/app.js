@@ -1,7 +1,11 @@
 $(document).ready(function() {
 
+    // Please fill with your Quick host address
     var QUICK_HOST = ""
+    
+    // Please fill with your Quick API key
     var KEY = ""
+    
     var ingest_ip = "https://" + QUICK_HOST + "/ingest/tiny-url" // set your ingest ip
     var count_ingest_ip = "https://" + QUICK_HOST + "/ingest/track-fetch"
     var gateway_ip = "https://" + QUICK_HOST + "/gateway/tinyurl-gateway/graphql" // set your gateway ip
