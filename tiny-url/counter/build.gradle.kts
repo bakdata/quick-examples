@@ -8,7 +8,7 @@ val assertJVersion: String by project
 
 plugins {
     java
-    id("com.google.cloud.tools.jib") version "3.2.0"
+    id("com.google.cloud.tools.jib") version "3.2.1"
 }
 
 group = "com.bakdata.quick.examples.tinyurl.counter"
