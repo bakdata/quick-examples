@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.bakdata.quick.examples.tinyurl.counter"
-version = "0.0.1"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -66,6 +66,6 @@ configurations.all {
 
 jib {
     to {
-        image = "us.gcr.io/d9p-quick/demo/tiny-url-counter:" + project.version
+        image = "bakdata/quick-demo-tinyurl:" + project.version
     }
 }
