@@ -1,3 +1,3 @@
 # TinyURL
 
-- [Documentation](https://github.com/bakdata/quick/blob/master/docs/examples/TinyURL.md)
+- [Documentation](https://github.com/bakdata/quick/tree/master/docs/docs/user/examples/TinyURL.md)
