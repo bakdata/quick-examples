@@ -1,31 +1,34 @@
 #!/bin/bash
 
-helm repo add streams-bootstrap https://raw.githubusercontent.com/bakdata/streams-bootstrap/1.9.0/charts
+quick context create --host "$QUICK_HOST" --key "$QUICK_API_KEY" --context guide
 
-quick context create --host "$QUICK_HOST" --key "$QUICK_API_KEY"
+quick context activate guide
 
-quick topic create tiny-url --key string --value string --immutable
+quick gateway create tiny-url-gateway
+
+quick gateway apply tiny-url-gateway -f schema.gql
+
+quick topic create tiny-url --key string --value schema --schema tiny-url-gateway.TinyUrl --immutable
 
 quick topic create track-fetch --key string --value string
 
 quick topic create count-fetch --key string --value long
 
-helm upgrade --install \
-	--kube-context "$QUICK_KUBE_CONTEXT" \
-	--namespace "$QUICK_NAMESPACE" \
-	--set streams.brokers="$KAFKA_BROKER" \
-	--set streams.schemaRegistryUrl="$SR_URL" \
-	--values deployment/values.yaml \
-	tiny-url-counter-app streams-bootstrap/streams-app
+quick app deploy tiny-url-counter \
+    --registry bakdata \
+    --image quick-demo-tinyurl \
+    --tag 1.0.0 \
+    --args input-topics=track-fetch output-topic=count-fetch productive=false
 
-quick gateway create tinyurl-gateway
+curl --request POST --url "$QUICK_URL/ingest/tiny-url/" \
+  --header 'content-type: application/json' \
+  --header "X-API-Key: $QUICK_API_KEY" \
+  --data '@./tiny-urls.json'
 
-quick gateway apply tinyurl-gateway -f schema.gql
-
-curl --request POST --url "$QUICK_HOST"/ingest/tiny-url/ \
+curl --request POST --url "$QUICK_HOST"/ingest/track-fetch/ \
 	--header "content-type: application/json" \
 	--header "X-API-Key: $QUICK_API_KEY" \
-	--data '{"key": "d9p", "value": "https://www.d9p.io"}'
+	--data '{"key": "d9p", "value": ""}'
 
 curl --request POST --url "$QUICK_HOST"/ingest/track-fetch/ \
 	--header "content-type: application/json" \
