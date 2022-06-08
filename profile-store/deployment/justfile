@@ -225,11 +225,3 @@ delete-toptracks-topic:
 ###############
 
 push-listeningevents: (produce-listeningevents "streams-apps/listeningevents-once.yaml")
-
-
-
-
-
-
-
-
