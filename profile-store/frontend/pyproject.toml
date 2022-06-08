@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "profile-store-app"
-version = "0.1.0"
+version = "1.0.0"
 description = "Demo app for the profile-store"
 authors = ["Markus Kobold <markus.kobold@bakdata.com>"]
 

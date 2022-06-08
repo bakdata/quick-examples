@@ -1,0 +1,38 @@
+image:
+  repository: "us.gcr.io/d9p-quick/profile-store-app"
+  tag: "1.0.3"
+imagePullSecrets:
+  - name: quick-image-secret
+
+app:
+  debug: false
+  quickHost: "profile.d9p.io"
+  gateway: "profiles"
+  seed: 123
+
+gunicorn:
+  workers: 1
+  preload: true
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  hosts:
+    - host: profile-store.d9p.io
+      paths:
+        - path: "/dashboard/"
+  tls:
+   - secretName: d9p-tls
+     hosts:
+       - profile-store.d9p.io
+
+resources:
+  requests:
+    cpu: 400m
+    memory: 512Mi
+  limits:
+    cpu: 400m
+    memory: 512Mi
