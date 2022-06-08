@@ -12,4 +12,3 @@ RUN poetry install --no-dev
 COPY __init__.py /profile-store-app/
 COPY data /profile-store-app/data
 COPY app /profile-store-app/app
-ENTRYPOINT ["gunicorn", "app.main:guni_run"]
