@@ -638,19 +638,13 @@ def update_avatar(_):
 
 argparser = ArgumentParser()
 argparser.add_argument(
-    "--subDomain", default="profile", help="The name of the quick subdomain"
+    "--quickHost", help="The quick host."
 )
 argparser.add_argument(
-    "-g", "--gateway", default="profiles", help="The name of the gateway"
+    "-g", "--gateway", help="The name of the gateway."
 )
 argparser.add_argument(
-    "-s",
-    "--subscriptionTopic",
-    default="listeningevents",
-    help="The name of the listening event topic",
-)
-argparser.add_argument(
-    "--apiKey", required=False, help="Api Token for the quick instance"
+    "--apiKey", required=False, help="Api Token for the quick instance."
 )
 argparser.add_argument(
     "-p", "--port", type=int, default="8050", help="The server port of the app"
@@ -675,7 +669,7 @@ def prepare(args):
         logging.getLogger("faker").setLevel(logging.WARNING)
         logging.getLogger("geventwebsocket.handler").setLevel(logging.WARNING)
     gateway = GatewayClient(
-        args.subDomain, args.gateway, args.subscriptionTopic, args.apiKey
+        args.quickHost, args.gateway, args.apiKey
     )
     data = ListenData(args.seed)
     # lambda is important here to get session-specific behaviour

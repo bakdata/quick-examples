@@ -20,20 +20,18 @@ def make_header(api_key: str = None) -> Dict:
 class GatewayClient:
     def __init__(
         self,
-        subdomain_name: str,
+        quick_host: str,
         gateway_name: str,
-        listeningevents_topic: str,
         api_key: str = None,
     ):
-        self.subdomain_name = subdomain_name
+        self.quick_host = quick_host
         self.gateway_name = gateway_name
-        self.listeningevents_topic = listeningevents_topic
         self.api_key = api_key
         self.logger = logging.getLogger(self.__class__.__name__)
 
     def new_client(self):
         transport = RequestsHTTPTransport(
-            f"https://{self.subdomain_name}.d9p.io/gateway/{self.gateway_name}/graphql",
+            f"https://{self.quick_host}/gateway/{self.gateway_name}/graphql",
             headers=make_header(self.api_key),
         )
         return Client(transport=transport, fetch_schema_from_transport=True)
@@ -44,7 +42,7 @@ class GatewayClient:
             "payload": make_header(self.api_key),
         }
         return WebSocket(
-            url=f"wss://{self.subdomain_name}.d9p.io/gateway/{self.gateway_name}/graphql-ws",
+            url=f"wss://{self.quick_host}/gateway/{self.gateway_name}/graphql-ws",
             id="listening_events_update",
             send=initial_msg,
         )
