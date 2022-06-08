@@ -1,0 +1,7 @@
+replicaCount: 1
+configurationEnvPrefix: "APP"
+
+schedule: null
+streams:
+  brokers: k8kafka-cp-kafka:9092
+  schemaRegistryUrl: http://k8kafka-cp-schema-registry:8081

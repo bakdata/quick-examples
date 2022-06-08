@@ -30,3 +30,7 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
+### Python environments
+**/.venv
+**/__pycache__
+

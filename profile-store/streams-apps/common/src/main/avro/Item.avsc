@@ -1,0 +1,15 @@
+{
+  "namespace": "io.d9p.demo.avro",
+  "type": "record",
+  "name": "Item",
+  "fields": [
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    }
+  ]
+}

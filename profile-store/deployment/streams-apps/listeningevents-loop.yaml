@@ -1,0 +1,6 @@
+commandLine:
+  dataset: app/data/LFM-1b-sample/LFM-1b_LEs-sample.txt
+  delay: 10
+  repeat: 1000
+  dropout: .5
+  realtime: true

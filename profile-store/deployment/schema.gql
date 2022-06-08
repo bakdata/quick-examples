@@ -1,0 +1,89 @@
+type Query {
+    getUserProfile(userId: Long!): UserProfile
+    getArtistRecommendations(
+        userId: Long!,
+        field: FieldType!=ARTIST,
+        limit: Int,
+        walks: Int,
+        walkLength: Int,
+        resetProbability: Float
+    ):  Recommendations @rest(url: "http://quick-app-recommender/recommendation",
+        pathParameter: ["userId", "field"],
+        queryParameter: ["limit", "walks", "walkLength", "resetProbability"])
+}
+
+enum FieldType {
+    ARTIST
+    ALBUM
+    TRACK
+}
+
+type Recommendations {
+    recommendations: [Recommendation!]!
+}
+
+type Recommendation {
+    id: Long!
+    artist: Item @topic(name: "artists", keyField: "id")
+}
+
+type UserProfile {
+    totalListenCount: Long! @topic(name: "counts", keyArgument: "userId")
+    firstListenEvent: Long! @topic(name: "firstlisten", keyArgument: "userId")
+    lastListenEvent: Long! @topic(name: "lastlisten", keyArgument: "userId")
+    artistCharts: NamedArtistCharts! @topic(name: "topartists", keyArgument: "userId")
+    albumCharts: NamedAlbumCharts! @topic(name: "topalbums", keyArgument: "userId")
+    trackCharts: NamedTrackCharts! @topic(name: "toptracks", keyArgument: "userId")
+}
+
+type ListeningEvent {
+    userId: Long!
+    artistId: Long!
+    albumId: Long!
+    trackId: Long!
+    timestamp: Long!
+}
+
+type Item {
+    id: Long!
+    name: String!
+}
+
+type Charts {
+    topK: [ChartRecord!]!
+}
+
+type ChartRecord {
+    id: Long!
+    countPlays: Long!
+}
+
+type NamedArtistCharts {
+    topK: [NamedArtistCount!]!
+}
+
+type NamedAlbumCharts {
+    topK: [NamedAlbumCount!]!
+}
+
+type NamedTrackCharts {
+    topK: [NamedTrackCount!]!
+}
+
+type NamedArtistCount {
+    id: Long!
+    artist: Item! @topic(name: "artists", keyField: "id")
+    countPlays: Long!
+}
+
+type NamedAlbumCount {
+    id: Long!
+    album: Item! @topic(name: "albums", keyField: "id")
+    countPlays: Long!
+}
+
+type NamedTrackCount {
+    id: Long!
+    track: Item! @topic(name: "tracks", keyField: "id")
+    countPlays: Long!
+}

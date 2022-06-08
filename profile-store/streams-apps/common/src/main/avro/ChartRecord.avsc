@@ -1,0 +1,64 @@
+[
+  {
+    "namespace": "io.d9p.demo.avro",
+    "name": "ChartRecord",
+    "type": "record",
+    "fields": [
+      {
+        "name": "id",
+        "type": "long"
+      },
+      {
+        "name": "countPlays",
+        "type": "long"
+      }
+    ]
+  },
+  {
+    "namespace": "io.d9p.demo.avro",
+    "name": "Charts",
+    "type": "record",
+    "fields": [
+      {
+        "name": "topK",
+        "type": {
+          "type": "array",
+          "items": "io.d9p.demo.avro.ChartRecord"
+        }
+      }
+    ]
+  },
+  {
+    "namespace": "io.d9p.demo.avro",
+    "name": "NamedChartRecord",
+    "type": "record",
+    "fields": [
+      {
+        "name": "id",
+        "type": "long"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "countPlays",
+        "type": "long"
+      }
+    ]
+  },
+  {
+    "namespace": "io.d9p.demo.avro",
+    "name": "NamedCharts",
+    "type": "record",
+    "fields": [
+      {
+        "name": "topK",
+        "type": {
+          "type": "array",
+          "items": "io.d9p.demo.avro.NamedChartRecord"
+        }
+      }
+    ]
+  }
+]
