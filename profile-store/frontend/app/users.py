@@ -1,6 +1,6 @@
 from dash import html
 
-from app.utils import button_style, new_ticker
+from utils import button_style, new_ticker
 
 rowL = dict(display="flex", flexFlow="row nowrap")
 

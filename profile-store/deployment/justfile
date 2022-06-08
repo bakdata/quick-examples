@@ -68,7 +68,7 @@ push-frontend-image: build-image
     docker push $IMAGE_REGISTRY/quick-demo-profile-store-app:$FRONTEND_VERSION
 
 build-image:
-    docker build ../frontend -t $IMAGE_REGISTRY/quick-demo-profile-store-app:$FRONTEND_VERSION
+    cd .. && docker build . -f ./deployment/frontend/Dockerfile -t $IMAGE_REGISTRY/quick-demo-profile-store-app:$FRONTEND_VERSION
 
 deploy-frontend:
     helm upgrade --install \

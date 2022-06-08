@@ -1,9 +1,11 @@
 import logging
+import os
 import warnings
 from datetime import datetime
 import json
 import uuid
 from argparse import ArgumentParser
+from pathlib import Path
 from typing import List, Optional
 import sys
 
@@ -15,11 +17,11 @@ from dash.exceptions import PreventUpdate
 from dash_extensions import websockets
 from dash_extensions.enrich import ServersideOutput
 
-from app.client import GatewayClient
-from app.generate_users import create_avatar
-from app.listen_data import ListenData, ListeningEvent
-from app.users import make_user
-from app.utils import (
+from client import GatewayClient
+from generate_users import create_avatar
+from listen_data import ListenData, ListeningEvent
+from users import make_user
+from utils import (
     timestamp2last_active_status,
     timestamp2datetime,
     format_song,
@@ -647,7 +649,10 @@ argparser.add_argument(
     "--apiKey", required=False, help="Api Token for the quick instance."
 )
 argparser.add_argument(
-    "-p", "--port", type=int, default="8050", help="The server port of the app"
+    "-d", "--data", default="/data", help="The LFM demo data directory."
+)
+argparser.add_argument(
+    "-p", "--port", type=int, default="8050", help="The server port of the app."
 )
 argparser.add_argument(
     "--debug", type=bool, default=False, help="Set log level to DEBUG"
@@ -671,7 +676,7 @@ def prepare(args):
     gateway = GatewayClient(
         args.quickHost, args.gateway, args.apiKey
     )
-    data = ListenData(args.seed)
+    data = ListenData(args.data, args.seed)
     # lambda is important here to get session-specific behaviour
     app.layout = lambda: main_layout(
         make_client_user(),

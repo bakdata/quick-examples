@@ -1,10 +1,11 @@
 import importlib.resources
 from io import StringIO
 from collections import namedtuple
+from pathlib import Path
 
 import pandas as pd
 
-from app.generate_users import fake_users
+from generate_users import fake_users
 
 ListeningEvent = namedtuple(
     "ListeningEvent", ["user_id", "artist_id", "album_id", "track_id", "timestamp"]
@@ -14,35 +15,35 @@ ListeningEvent = namedtuple(
 class ListenData:
     UNNAMED = "N.N."
 
-    def __init__(self, seed: int = None):
-        data = [
-            StringIO(importlib.resources.read_text("data", f"LFM-1b_{d}-sample.txt"))
-            for d in ["artists", "albums", "tracks", "LEs"]
-        ]
+    def __init__(self, data_directory: str, seed: int = None):
+
+        def full_path(d):
+            return Path(data_directory) / f"LFM-1b_{d}-sample.txt"
+
         csv_kwargs = dict(sep="\t", header=None, keep_default_na=False, na_values="")
         self.artists = pd.read_csv(
-            data[0],
+            full_path("artists"),
             **csv_kwargs,
             names=["artist_id", "artist_name"],
         )
         self.artists.artist_name.fillna(ListenData.UNNAMED, inplace=True)
 
         self.albums = pd.read_csv(
-            data[1],
+            full_path("albums"),
             **csv_kwargs,
             names=["album_id", "album_name", "artist_id"],
         )
         self.albums.album_name.fillna(ListenData.UNNAMED, inplace=True)
 
         self.tracks = pd.read_csv(
-            data[2],
+            full_path("tracks"),
             **csv_kwargs,
             names=["track_id", "track_name", "artist_id"],
         )
         self.tracks.track_name.fillna(ListenData.UNNAMED, inplace=True)
 
         listening_events = pd.read_csv(
-            data[3],
+            full_path("LEs"),
             **csv_kwargs,
             names=["user_id", "artist_id", "album_id", "track_id", "timestamp"],
             usecols=["user_id", "artist_id", "album_id", "track_id"],

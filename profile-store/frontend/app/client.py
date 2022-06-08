@@ -7,7 +7,7 @@ from dash_extensions import WebSocket
 from gql.client import Client
 from gql.transport.requests import RequestsHTTPTransport
 
-from app.listen_data import ListeningEvent
+from listen_data import ListeningEvent
 
 
 def make_header(api_key: str = None) -> Dict:
