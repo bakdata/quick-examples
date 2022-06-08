@@ -26,9 +26,9 @@ deploy-apps: deploy-metrics-apps deploy-charts-apps deploy-recommender-app
 init-data: init-artist-data init-album-data init-track-data
 
 # 7. Start a listeningstream by looping on the demo data
-produce-listeningevents config="helm/listeningevents-loop.yaml":
+produce-listeningevents config="streams-apps/listeningevents-loop.yaml":
     helm upgrade --install \
-                 --values helm/base.yaml \
+                 --values streams-apps/base.yaml \
                  --values {{config}} \
                  --set image=$IMAGE_REGISTRY/quick-demo-listeningevents-producer \
                  --set imageTag="$DEFAULT_IMAGE_TAG" \
@@ -134,7 +134,7 @@ create-toptracks-topic:
 # init-data
 init-single-data id file:
   helm upgrade --install \
-               --values helm/base.yaml \
+               --values streams-apps/base.yaml \
                --set nameOverride={{id}} \
                --set image=$IMAGE_REGISTRY/quick-demo-itemtables-producer \
                --set imageTag=$DEFAULT_IMAGE_TAG \
@@ -224,7 +224,7 @@ delete-toptracks-topic:
 # Development #
 ###############
 
-push-listeningevents: (produce-listeningevents "helm/listeningevents-once.yaml")
+push-listeningevents: (produce-listeningevents "streams-apps/listeningevents-once.yaml")
 
 
 
