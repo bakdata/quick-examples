@@ -10,6 +10,15 @@ type Query {
     ):  Recommendations @rest(url: "http://quick-app-recommender/recommendation",
         pathParameter: ["userId", "field"],
         queryParameter: ["limit", "walks", "walkLength", "resetProbability"])
+
+}
+
+type Subscription {
+    listeningEventUpdate: ListeningEvent @topic(name: "listeningevents")
+}
+
+type Mutation {
+    sendListeningEvent(userId: Long!, event: ListeningEventInput!): ListeningEvent @topic(name: "listeningevents")
 }
 
 enum FieldType {
@@ -37,6 +46,17 @@ type UserProfile {
 }
 
 type ListeningEvent {
+    userId: Long!
+    artistId: Long!
+    albumId: Long!
+    trackId: Long!
+    timestamp: Long!
+    artist: Item @topic(name: "artists", keyField: "artistId")
+    album: Item @topic(name: "albums", keyField: "albumId")
+    track: Item @topic(name: "tracks", keyField: "trackId")
+}
+
+input ListeningEventInput {
     userId: Long!
     artistId: Long!
     albumId: Long!
