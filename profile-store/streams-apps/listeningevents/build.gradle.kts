@@ -15,7 +15,7 @@ dependencies {
 
 jib {
     to {
-        image = "bakdata/quick-demo-listeningevents-producer:" + project.version
+        image = "bakdata/quick-demo-profile-listenings-producer:" + project.version
     }
     extraDirectories {
         paths {

@@ -29,6 +29,6 @@ dependencies {
 
 jib {
     to {
-        image = "bakdata/quick-demo-recommender:" + project.version
+        image = "bakdata/quick-demo-profile-recommender:" + project.version
     }
 }

@@ -6,6 +6,6 @@ dependencies {
 
 jib {
     to {
-        image = "bakdata/quick-demo-listen-charts:" + project.version
+        image = "bakdata/quick-demo-profile-listenings-charts:" + project.version
     }
 }

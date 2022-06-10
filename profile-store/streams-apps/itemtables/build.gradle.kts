@@ -9,7 +9,7 @@ dependencies {
 
 jib {
     to {
-        image = "bakdata/quick-demo-itemtables-producer:" + project.version
+        image = "bakdata/quick-demo-profile-items-producer:" + project.version
     }
     extraDirectories {
         paths {

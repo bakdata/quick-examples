@@ -30,7 +30,7 @@ produce-listeningevents config="streams-apps/listeningevents-loop.yaml":
     helm upgrade --install \
                  --values streams-apps/base.yaml \
                  --values {{config}} \
-                 --set image=$IMAGE_REGISTRY/quick-demo-listeningevents-producer \
+                 --set image=$IMAGE_REGISTRY/quick-demo-profile-listenings-producer \
                  --set imageTag="$DEFAULT_IMAGE_VERSION" \
                  --set streams.outputTopic="$LISTENINGEVENTS" \
                  --debug --namespace "$K8S_NAMESPACE" \
@@ -65,10 +65,10 @@ delete-gateway:
 ############
 
 push-frontend-image: build-image
-    docker push $IMAGE_REGISTRY/quick-demo-profile-store-app:$FRONTEND_VERSION
+    docker push $IMAGE_REGISTRY/quick-demo-profile-frontend:$FRONTEND_VERSION
 
 build-image:
-    cd .. && docker build . -f ./deployment/frontend/Dockerfile -t $IMAGE_REGISTRY/quick-demo-profile-store-app:$FRONTEND_VERSION
+    cd .. && docker build . -f ./deployment/frontend/Dockerfile -t $IMAGE_REGISTRY/quick-demo-profile-frontend:$FRONTEND_VERSION
 
 deploy-frontend:
     helm upgrade --install \
@@ -136,7 +136,7 @@ init-single-data id file:
   helm upgrade --install \
                --values streams-apps/base.yaml \
                --set nameOverride={{id}} \
-               --set image=$IMAGE_REGISTRY/quick-demo-itemtables-producer \
+               --set image=$IMAGE_REGISTRY/quick-demo-profile-items-producer \
                --set imageTag=$DEFAULT_IMAGE_VERSION \
                --set streams.outputTopic={{id}} \
                --set streams.productive=$PRODUCTIVE \
@@ -149,14 +149,14 @@ init-track-data: (init-single-data "$TRACKS" "LFM-1b_tracks-sample.txt")
 # deploy-apps
 deploy-counts-app:
     quick app deploy $COUNTS \
-                 --registry $IMAGE_REGISTRY --image quick-demo-listen-count --tag $DEFAULT_IMAGE_VERSION \
+                 --registry $IMAGE_REGISTRY --image quick-demo-profile-listenings-count --tag $DEFAULT_IMAGE_VERSION \
                  --args input-topics=$LISTENINGEVENTS \
                         output-topic=$COUNTS \
                         productive=$PRODUCTIVE
 
 deploy-useractivity-app id kind:
     quick app deploy {{id}} \
-                 --registry $IMAGE_REGISTRY --image quick-demo-listen-activity --tag $DEFAULT_IMAGE_VERSION \
+                 --registry $IMAGE_REGISTRY --image quick-demo-profile-listenings-activity --tag $DEFAULT_IMAGE_VERSION \
                  --args input-topics=$LISTENINGEVENTS \
                         output-topic={{id}} \
                         kind={{kind}} \
@@ -166,7 +166,7 @@ deploy-firstlisten-app: (deploy-useractivity-app "$FIRST_LISTENINGEVENTS" "FIRST
 deploy-lastlisten-app: (deploy-useractivity-app "$LAST_LISTENINGEVENTS" "LAST")
 
 deploy-charts-app id field:
-    quick app deploy {{id}} --registry $IMAGE_REGISTRY --image quick-demo-listen-charts --tag $DEFAULT_IMAGE_VERSION \
+    quick app deploy {{id}} --registry $IMAGE_REGISTRY --image quick-demo-profile-listenings-charts --tag $DEFAULT_IMAGE_VERSION \
                    --args input-topics=$LISTENINGEVENTS \
                           output-topic={{id}} \
                           field={{field}} \
@@ -177,7 +177,7 @@ deploy-topalbums-app: (deploy-charts-app "$TOP_ALBUMS" "ALBUM")
 deploy-toptracks-app: (deploy-charts-app "$TOP_TRACKS" "TRACK")
 
 deploy-recommender-app:
-    quick app deploy $RECOMMENDER --registry $IMAGE_REGISTRY --image quick-demo-recommender --tag $DEFAULT_IMAGE_VERSION \
+    quick app deploy $RECOMMENDER --registry $IMAGE_REGISTRY --image quick-demo-profile-recommender --tag $DEFAULT_IMAGE_VERSION \
                                   --port=$RECOMMENDER_PORT \
                                   --args input-topics=$LISTENINGEVENTS \
                                          productive=$PRODUCTIVE
