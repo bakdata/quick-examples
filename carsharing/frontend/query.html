@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <link rel="canonical" href="https://d9p.io/demo/carsharing"/>
+
+    <title>Demo - datanonstop | quick</title>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Demo - datanonstop | quick"/>
+    <meta property="og:description" content="Exposing your streaming data through GraphQL - Built on Apache Kafka"/>
+    <meta property="og:site_name" content="datanonstop | quick"/>
+
+    <link rel="stylesheet" id="wp_streamnatives_quick-style-css"
+          href="https://d9p.io/wp-content/themes/wp_streamnatives_quick/style.css?ver=5.7.1" type="text/css"
+          media="all">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/base-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css">
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="icon"
+          href="https://d9p.io/wp-content/uploads/2020/05/xcropped-quick-icon-192x192.jpg.pagespeed.ic.jbobi5XJ1g.jpg"
+          sizes="192x192"/>
+    <link rel="apple-touch-icon"
+          href="https://d9p.io/wp-content/uploads/2020/05/xcropped-quick-icon-180x180.jpg.pagespeed.ic.4os8SeIWyq.jpg"/>
+    <meta name="msapplication-TileImage"
+          content="https://d9p.io/wp-content/uploads/2020/05/cropped-quick-icon-270x270.jpg">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div class="pure-g main">
+    <div class="sidebar pure-u-1 pure-u-lg-1-4">
+        <p class="site-title">
+            <a class="mainlogo logo" href="https://d9p.io/" rel="home">
+                <span class="logo__mainbrand">datanonstop </span><span class="logo__separator">|</span><span
+                    class="logo__subbrand"> quick </span>
+            </a>
+        </p>
+
+        <div class="sidebar-content">
+            <h1>Subscription Demo - Carsharing</h1>
+            <hr>
+            <div>
+                <h4>Route</h4>
+                <table>
+                    <tr id="tripid-row">
+                        <td>Trip</td>
+                    </tr>
+
+                    <tr id="vehicle-name-row">
+                        <td>Vehicle</td>
+                    </tr>
+
+                    <tr id="vehicle-range-row">
+                        <td>Vehicle Range</td>
+                    </tr>
+
+                    <tr id="distance-row">
+                        <td>Distance</td>
+                    </tr>
+
+                    <tr id="time-row">
+                        <td>Time</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="pure-u-1 pure-u-lg-3-4">
+        <div id="deckgl-map"></div>
+    </div>
+</div>
+<script type="text/javascript" src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+<script type="text/javascript" src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+<script type="module" src="assets/js/query.js"></script>
+</body>
+</html>

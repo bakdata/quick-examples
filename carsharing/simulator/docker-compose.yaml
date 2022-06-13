@@ -1,0 +1,9 @@
+version: '3'
+services:
+  osrm:
+    image: osrm/osrm-backend:v5.22.0
+    ports:
+      - "127.0.0.1:5000:5000"
+    volumes: 
+     - ./osrm:/data
+    command: "osrm-routed --algorithm ch --max-matching-radius 100 --max-trip-size 50000 --max-table-size 50000 --max-matching-size 50000 --max-viaroute-size 50000 --max-nearest-size 50000 /data/germany-latest.osrm"

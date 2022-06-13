@@ -1,0 +1,66 @@
+---
+# Source: streams-app/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-trip-aggregator
+  labels:
+    app: demo-trip-aggregator
+    chart: streams-app-0.1.0
+    release: trip-aggregator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-trip-aggregator
+      release: trip-aggregator
+  template:
+    metadata:
+      labels:
+        app: demo-trip-aggregator
+        release: trip-aggregator
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            podAffinityTerm:
+              topologyKey: "kubernetes.io/hostname"
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - demo-trip-aggregator
+      imagePullSecrets:
+        - name: "quick-image-secret"
+      containers:
+        - name: demo-trip-aggregator
+          image: "us.gcr.io/d9p-quick/demo/trip-aggregator:latest"
+          imagePullPolicy: "Always"
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2G
+            requests:
+              cpu: 500m
+              memory: 300Mi
+          env:
+            - name: ENV_PREFIX
+              value: APP_
+            - name: "APP_BROKERS"
+              value: "quick-kafka:9092"
+            - name: "APP_SCHEMA_REGISTRY_URL"
+              value: "http://quick-sr-schema-registry:8081"
+            - name: "APP_INPUT_TOPICS"
+              value: "status"
+            - name: "APP_OUTPUT_TOPIC"
+              value: "trip"
+            - name: "APP_PRODUCTIVE"
+              value: "false"
+            - name: JAVA_TOOL_OPTIONS
+              value: '-Dcom.sun.management.jmxremote.port=5555
+                -Dcom.sun.management.jmxremote.authenticate=false
+                -Dcom.sun.management.jmxremote.ssl=false
+                -XX:MaxRAMPercentage=75.0
+                '

@@ -1,0 +1,16 @@
+nameOverride: demo-trip-aggregator
+
+image: us.gcr.io/d9p-quick/demo/trip-aggregator
+imageTag: latest
+
+streams:
+  brokers: "quick-kafka:9092"
+  schemaRegistryUrl: "http://quick-sr-schema-registry:8081"
+  inputTopics:
+    - status
+  outputTopic: trip
+  productive: false
+
+prometheus:
+  jmx:
+    enabled: false
