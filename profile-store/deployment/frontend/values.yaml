@@ -1,13 +1,9 @@
 image:
-  repository: "us.gcr.io/d9p-quick/profile-store-app"
+  repository: "bakdata/quick-demo-profile-frontend"
   tag: "1.0.3"
-imagePullSecrets:
-  - name: quick-image-secret
 
 app:
   debug: false
-  quickHost: "profile.d9p.io"
-  gateway: "profiles"
   seed: 123
 
 gunicorn:

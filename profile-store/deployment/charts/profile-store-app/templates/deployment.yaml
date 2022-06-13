@@ -50,7 +50,7 @@ spec:
             {{- end }}
             - "--bind"
             - ":8050"
-            - "app.main:guni_run({{- range $k, $v := .Values.app }}$k=$v,{{- end }})"
+            - "main:guni_run({{- range $k, $v := .Values.app }}{{ $k }}='{{$v}}',{{- end }})"
           ports:
             - name: http
               containerPort: 8050

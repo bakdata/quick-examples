@@ -10,7 +10,7 @@ init-quick:
 
 # 2. Create a gateway
 create-gateway:
-   quick gateway create "$GATEWAY" "$GATEWAY_ARGS"
+   quick gateway create "$GATEWAY" $GATEWAY_ARGS
 
 # 3. Apply the GraphQL-schema to the gateway
 apply-schema:
@@ -73,8 +73,9 @@ build-image:
 deploy-frontend:
     helm upgrade --install \
                  --values ./frontend/values.yaml \
-                 --set subscriptionTopic=$LISTENINGEVENTS \
-                 --namespace $K8S_NAMESPACE \
+                 --set app.quickHost="$QUICK_HOST" \
+                 --set app.gateway="$GATEWAY" \
+                 --namespace "$K8S_NAMESPACE" \
                  $FRONTEND ./charts/profile-store-app
 
 delete-frontend:
