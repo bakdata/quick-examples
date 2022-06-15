@@ -1,9 +1,12 @@
 ## Pre-Requisites
 
-* Access to a quick instance (version > 0.2.2)
-* [helm](https://helm.sh/docs/intro/install/) installed
+Required:
+* Access to a quick instance (version => 0.6.0)
+* [Helm](https://helm.sh/docs/intro/install/) installed
 * [streams-bootstrap-charts](https://github.com/bakdata/streams-bootstrap/tree/master/charts) installed
-* [quick-cli](https://github.com/bakdata/quick-cli) > 0.2.2 installed
+* [quick-cli](https://github.com/bakdata/quick-cli) => 0.6.0 installed
+
+Optional:
 * [just](https://github.com/casey/just)
 
 ## Quick Setup

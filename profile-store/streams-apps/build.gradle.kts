@@ -25,7 +25,7 @@ allprojects {
 }
 
 subprojects {
-    group = "com.bakdata.profilestore"
+    group = "com.bakdata.quick.profilestore"
     version = "1.0.0"
     java.sourceCompatibility = JavaVersion.VERSION_11
 

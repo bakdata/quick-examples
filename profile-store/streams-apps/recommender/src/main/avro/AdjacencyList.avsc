@@ -1,5 +1,5 @@
 {
-  "namespace": "com.bakdata.profilestore.recommender.avro",
+  "namespace": "com.bakdata.quick.profilestore.avro",
   "type": "record",
   "name": "AdjacencyList",
   "fields": [
