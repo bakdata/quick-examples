@@ -13,7 +13,6 @@ class Trip:
         self.id = id_generator(size=6)
         # request route from osrm api
         coordinates = f"{self.start[0]},{self.start[1]};{self.end[0]},{self.end[1]}"
-        # http://localhost:5000/route/v1/driving/13.307689733356195,52.49550979090535;13.460582507417463,52.51022326723362?steps=true&geometries=geojson&overview=full&annotations=duration
         link = f"http://localhost:5000/route/v1/driving/{coordinates}?steps=true&geometries=geojson&overview=full&annotations=duration"
         try:
             res = urllib.request.urlopen(link)

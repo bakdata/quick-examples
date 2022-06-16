@@ -1,0 +1,202 @@
+[
+  {
+    "key": "0",
+    "value": {
+      "id": "0",
+      "name": "Volvo 200 Series",
+      "maxRange": 158
+    }
+  },
+  {
+    "key": "1",
+    "value": {
+      "id": "1",
+      "name": "Packard Eight",
+      "maxRange": 301
+    }
+  },
+  {
+    "key": "2",
+    "value": {
+      "id": "2",
+      "name": "Rambler Classic",
+      "maxRange": 133
+    }
+  },
+  {
+    "key": "3",
+    "value": {
+      "id": "3",
+      "name": "BMW 3 Series",
+      "maxRange": 128
+    }
+  },
+  {
+    "key": "4",
+    "value": {
+      "id": "4",
+      "name": "Continental Mark II",
+      "maxRange": 263
+    }
+  },
+  {
+    "key": "5",
+    "value": {
+      "id": "5",
+      "name": "Mercury Grand Marquis",
+      "maxRange": 146
+    }
+  },
+  {
+    "key": "6",
+    "value": {
+      "id": "6",
+      "name": "Volkswagen Golf",
+      "maxRange": 187
+    }
+  },
+  {
+    "key": "7",
+    "value": {
+      "id": "7",
+      "name": "Volkswagen Golf",
+      "maxRange": 234
+    }
+  },
+  {
+    "key": "8",
+    "value": {
+      "id": "8",
+      "name": "Series/Defender",
+      "maxRange": 282
+    }
+  },
+  {
+    "key": "9",
+    "value": {
+      "id": "9",
+      "name": "Volkswagen Beetle",
+      "maxRange": 279
+    }
+  },
+  {
+    "key": "10",
+    "value": {
+      "id": "10",
+      "name": "AMC Hornet",
+      "maxRange": 253
+    }
+  },
+  {
+    "key": "11",
+    "value": {
+      "id": "11",
+      "name": "Dodge Coronet",
+      "maxRange": 136
+    }
+  },
+  {
+    "key": "12",
+    "value": {
+      "id": "12",
+      "name": "\u0160koda Octavia",
+      "maxRange": 388
+    }
+  },
+  {
+    "key": "13",
+    "value": {
+      "id": "13",
+      "name": "Ford F-Series",
+      "maxRange": 157
+    }
+  },
+  {
+    "key": "14",
+    "value": {
+      "id": "14",
+      "name": "Opel Corsa",
+      "maxRange": 217
+    }
+  },
+  {
+    "key": "15",
+    "value": {
+      "id": "15",
+      "name": "SEAT Ibiza",
+      "maxRange": 228
+    }
+  },
+  {
+    "key": "16",
+    "value": {
+      "id": "16",
+      "name": "Willys 77",
+      "maxRange": 159
+    }
+  },
+  {
+    "key": "17",
+    "value": {
+      "id": "17",
+      "name": "Pontiac Grand Am",
+      "maxRange": 196
+    }
+  },
+  {
+    "key": "18",
+    "value": {
+      "id": "18",
+      "name": "Perodua Myvi",
+      "maxRange": 261
+    }
+  },
+  {
+    "key": "19",
+    "value": {
+      "id": "19",
+      "name": "De Tomaso Pantera",
+      "maxRange": 254
+    }
+  },
+  {
+    "key": "20",
+    "value": {
+      "id": "20",
+      "name": "Metropolitan",
+      "maxRange": 156
+    }
+  },
+  {
+    "key": "21",
+    "value": {
+      "id": "21",
+      "name": "Mazda Familia",
+      "maxRange": 171
+    }
+  },
+  {
+    "key": "22",
+    "value": {
+      "id": "22",
+      "name": "Nissan Z-cars",
+      "maxRange": 369
+    }
+  },
+  {
+    "key": "23",
+    "value": {
+      "id": "23",
+      "name": "Pontiac Grand Am",
+      "maxRange": 386
+    }
+  },
+  {
+    "key": "24",
+    "value": {
+      "id": "24",
+      "name": "Rambler Classic",
+      "maxRange": 344
+    }
+  }
+]

@@ -95,7 +95,7 @@ class Vehicle:
                     seconds=round(self.curr_trip.duration_list[step_index + index], 2))
 
                 # use function from help_functions.py
-                status_data = create_status(self.id, self.curr_trip.id, elem, route[index + 1], self.get_dist(),
+                status_data = create_status(self.id, self.curr_trip.id, elem, self.get_dist(),
                                             int(self.get_battery()), int(self.timestamp.timestamp()))
                 segments.append(status_data)
 

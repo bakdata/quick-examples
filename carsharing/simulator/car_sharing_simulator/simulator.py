@@ -9,7 +9,7 @@ from car_sharing_simulator import current_path
 JSON = f'{current_path}/../data/status.jsonl'
 
 API_KEY = os.getenv("QUICK_API_KEY")
-QUICK_HOST = os.getenv("QUICK_HOST")
+QUICK_URL = os.getenv("QUICK_URL")
 TOPIC = os.getenv("QUICK_STATUS_TOPIC")
 NUM_UPDATES = int(os.getenv("QUICK_NUM_UPDATES") or 50)
 
@@ -30,7 +30,7 @@ def __ingest_data():
 @sleep_and_retry
 @limits(calls=5, period=1)
 def send_data(updates, session):
-    response = session.post(f'{QUICK_HOST}/{TOPIC}', json=updates)
+    response = session.post(f'{QUICK_URL}/ingest/{TOPIC}', json=updates)
     if response.status_code != 200:
         print(f"Error occurred during ingestion {response.content}")
 

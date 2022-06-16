@@ -22,9 +22,16 @@ def generate(num_of_points, charging_station):
         print(bearing)
     file_name = 'charging_stations.json' if charging_station else 'destinations.json'
     with open(f"{current_path}/../data/{file_name}", 'w') as outfile:
-        json.dump(locations, outfile)
+        json.dump(locations, outfile, indent=2)
     print(json.dumps(locations))
 
 
 if __name__ == "__main__":
-    generate(num_of_points=60, charging_station=True)
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--destination", default="random", choices=["random", "charging"],
+                        help="Generate random destinations or charging station locations.")
+    parser.add_argument("-n", "--num-points", type=int, default=60, help="Number of points to generate.")
+    args = parser.parse_args()
+    generate(num_of_points=args.num_points, charging_station=args.destination == "charging")
