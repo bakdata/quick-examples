@@ -6,7 +6,7 @@ Additionally, it demonstrates how to include a rest endpoint in the query.
 
 For the demo, we use a sample of the listening event corpus [LFM-1b](http://www.cp.jku.at/datasets/LFM-1b/)
 
-It can be deployed using the scripts in profile-store/deployment (see Readme there).
+It can be deployed using the scripts in profile-store/deployment (see [Readme there](../deployment/Readme.md)).
 
 ### Query
 

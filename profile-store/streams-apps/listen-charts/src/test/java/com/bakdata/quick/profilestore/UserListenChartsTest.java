@@ -1,8 +1,6 @@
 package com.bakdata.quick.profilestore;
 
 import com.bakdata.fluent_kafka_streams_tests.junit5.TestTopologyExtension;
-import com.bakdata.quick.profilestore.FieldType;
-import com.bakdata.quick.profilestore.UserListenCharts;
 import io.d9p.demo.avro.Item;
 import io.d9p.demo.avro.ListeningEvent;
 import io.d9p.demo.avro.NamedChartRecord;
@@ -18,7 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-public class UserListenChartsTest {
+class UserListenChartsTest {
 
     private static final String LISTENINGEVENTS = "le-test";
     private static final String USERCHARTS = "top3";

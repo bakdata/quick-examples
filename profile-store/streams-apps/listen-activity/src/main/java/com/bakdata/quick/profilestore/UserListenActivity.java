@@ -15,6 +15,9 @@ import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Produced;
 import picocli.CommandLine;
 
+/**
+ * Aggregate the earliest and most recent listening event for each user
+ */
 public class UserListenActivity extends KafkaStreamsApplication {
 
     public enum Kind {

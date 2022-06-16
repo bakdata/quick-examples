@@ -1,5 +1,5 @@
 {
-  "namespace": "com.bakdata.profilestore.common.avro",
+  "namespace": "com.bakdata.quick.profilestore.avro",
   "name": "CompositeKey",
   "type": "record",
   "fields": [

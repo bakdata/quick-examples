@@ -19,6 +19,11 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.LongSerializer;
 import picocli.CommandLine;
 
+/**
+ * Produces a csv-dataset in a kafka topic
+ *
+ * @param <ValueType> produced value type
+ */
 @Slf4j
 @Setter
 public abstract class DataSetProducer<ValueType extends SpecificRecord> extends KafkaProducerApplication {
@@ -45,6 +50,12 @@ public abstract class DataSetProducer<ValueType extends SpecificRecord> extends 
         }
     }
 
+    /**
+     * Produces the entire dataset to topic
+     *
+     * @param topic  the (output) topic
+     * @param eventProducer a kafka producer
+     */
     public void produceDataset(final String topic, final Producer<Long, ValueType> eventProducer) throws Exception {
         log.debug("Start producing...");
         for (final CSVRecord csvRecord : this.getDataset()) {

@@ -10,6 +10,11 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import picocli.CommandLine;
 
+/**
+ * Produces the listening event dataset.
+ * Adds some flexibility to use the dataset as a realtime simulation, in particular
+ * looping, sampling (dropout) and realtime timestamps.
+ */
 @Getter
 @Setter
 public class DatasetListeningEventProducer extends DataSetProducer<ListeningEvent> {

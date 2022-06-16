@@ -56,15 +56,15 @@ public class RecommenderMain extends KafkaStreamsApplication {
         startApplication(new RecommenderMain(), addFallbackHostFromEnv(args));
     }
 
-    public static String[] addFallbackHostFromEnv(final String[] args) {
+    private static String[] addFallbackHostFromEnv(final String[] args) {
         // host and port can also be set from env (will override default)
         final List<String> argList = new ArrayList<>(List.of(args));
         final String host = System.getenv("POD_IP");
         final String port = System.getenv("CONTAINER_PORT");
-        if (!argList.contains("--host") & host != null) {
+        if (!argList.contains("--host") && host != null) {
             argList.addAll(List.of("--host", host));
         }
-        if (!argList.contains("--port") & port != null) {
+        if (!argList.contains("--port") && port != null) {
             argList.addAll(List.of("--port", port));
         }
         return argList.toArray(new String[0]);
@@ -151,11 +151,11 @@ public class RecommenderMain extends KafkaStreamsApplication {
         final SpecificAvroSerde<Item> namedRecordSerde = this.getConfiguredSerde(Item.class, false);
 
         if (this.idResolution) {
-            RecommenderMain.addGlobalNameStore(builder, this.getInputTopic("album"), storeNames.get(FieldType.ALBUM),
+            addGlobalNameStore(builder, this.getInputTopic("album"), storeNames.get(FieldType.ALBUM),
                     namedRecordSerde);
-            RecommenderMain.addGlobalNameStore(builder, this.getInputTopic("artist"), storeNames.get(FieldType.ARTIST),
+            addGlobalNameStore(builder, this.getInputTopic("artist"), storeNames.get(FieldType.ARTIST),
                     namedRecordSerde);
-            RecommenderMain.addGlobalNameStore(builder, this.getInputTopic("track"), storeNames.get(FieldType.TRACK),
+            addGlobalNameStore(builder, this.getInputTopic("track"), storeNames.get(FieldType.TRACK),
                     namedRecordSerde);
         }
         Topology topology = builder.build();

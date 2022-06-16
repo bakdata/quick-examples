@@ -25,6 +25,9 @@ import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Repartitioned;
 import picocli.CommandLine;
 
+/**
+ * Aggregates the top k artists / albums / tracks for each user
+ */
 @Getter
 @Setter
 public class UserListenCharts extends KafkaStreamsApplication {
@@ -57,9 +60,9 @@ public class UserListenCharts extends KafkaStreamsApplication {
         }
     }
 
-    private <ChartT, ChartRecordT> void createTopKStream(final KStream<Long, ChartRecordT> namedChartRecordKStream,
+    private <ChartT, ChartRecordT> void createTopKStream(final KStream<Long, ChartRecordT> chartRecordKStream,
             final ChartAggregationWrapper<ChartT, ChartRecordT> chartAggregator) {
-        namedChartRecordKStream
+        chartRecordKStream
                 .groupByKey()
                 .aggregate(chartAggregator::initialize, chartAggregator::update)
                 .toStream()

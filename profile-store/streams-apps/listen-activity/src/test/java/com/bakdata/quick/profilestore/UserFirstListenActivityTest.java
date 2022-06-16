@@ -9,7 +9,7 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-public class UserFirstListenActivityTest {
+class UserFirstListenActivityTest {
 
     private static final String LISTENINGEVENTS = "le-test";
     private static final String FIRSTEVENTS = "first-topic";

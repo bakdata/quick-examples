@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 import org.jooq.lambda.Seq;
 
 /**
- * This class proxies the types ChartT and ChartRecordT, since we have no polymorphism in avro
+ * Wraps the types ChartT and ChartRecordT, since we have no polymorphism in avro
  *
  * @param <ChartT>
  * @param <ChartRecordT>
@@ -21,6 +21,14 @@ public abstract class ChartAggregationWrapper<ChartT, ChartRecordT> {
 
     public abstract ChartT initialize();
 
+    /**
+     * Updates the list of top k chart records with a new record
+     *
+     * @param userId the id of the user
+     * @param currentRecord the new record
+     * @param currentCharts the current top k charts
+     * @return the updated charts, maybe containing the new record
+     */
     public ChartT update(final Long userId, final ChartRecordT currentRecord, final ChartT currentCharts) {
         final List<ChartRecordT> updatedCharts =
                 Seq.concat(this.getTopK(currentCharts).stream(), Stream.of(currentRecord))

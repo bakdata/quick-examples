@@ -4,6 +4,9 @@ import io.d9p.demo.avro.Item;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
+/**
+ * Produces the tables used to lookup artist, album and track ids to kafka
+ */
 public class DataSetFieldTableProducer extends DataSetProducer<Item> {
 
     public static void main(final String[] args) {

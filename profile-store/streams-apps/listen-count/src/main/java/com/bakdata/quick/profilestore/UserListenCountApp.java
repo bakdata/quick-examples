@@ -9,6 +9,9 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Produced;
 
+/**
+ * Counts the listening events per user
+ */
 public class UserListenCountApp extends KafkaStreamsApplication {
 
     public static void main(final String[] args) {
