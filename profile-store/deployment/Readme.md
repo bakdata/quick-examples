@@ -15,7 +15,7 @@ The setup includes the following steps:
 
 1. Initialize a quick context
 2. Create a quick gateway
-3. Apply `./deployment/schema.gql` to the gateway
+3. Apply `schema.gql` to the gateway
 4. Create the topics
 5. Deploy the streams-apps
 6. Initialize the item data (artist, album and track information)
