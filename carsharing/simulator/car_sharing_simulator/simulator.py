@@ -10,7 +10,7 @@ JSON = f'{current_path}/../data/status.jsonl'
 
 API_KEY = os.getenv("QUICK_API_KEY")
 QUICK_URL = os.getenv("QUICK_URL")
-TOPIC = os.getenv("QUICK_STATUS_TOPIC")
+TOPIC = os.getenv("QUICK_STATUS_TOPIC" or "status")
 NUM_UPDATES = int(os.getenv("QUICK_NUM_UPDATES") or 50)
 
 
@@ -36,7 +36,6 @@ def send_data(updates, session):
 
 
 if __name__ == "__main__":
-
     print("Starting to ingest data")
     # Ingest data for ever...
     while True:
