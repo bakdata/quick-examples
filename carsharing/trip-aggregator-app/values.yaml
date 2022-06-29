@@ -1,6 +1,6 @@
 nameOverride: demo-trip-aggregator
 
-image: us.gcr.io/d9p-quick/demo/trip-aggregator
+image: bakdata/quick-demo-monitoring-trip-aggregator
 imageTag: latest
 
 streams:
