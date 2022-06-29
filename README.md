@@ -11,3 +11,4 @@ You can see all of the tutorials [here](https://d9p.io/tutorials/). To find the 
 - **[Tutorial #3 – Combining and Querying Multiple Data Streams](/tutorials/multi-stream)**
 - **[Tutorial #4 – Real-time Subscriptions with GraphQL](/tutorials/subscriptions)**
 - **[Tutorial #5 – How to Build Your First Application with Quick](/tiny-url)**
+- **[Tutorial #6 - Real-time customer profiles](/profile-store)**
