@@ -10,6 +10,6 @@ It contains the source code of the tutorials in the [Quick documentation](https:
 
 To find the files and commands for each example, click on the name of the tutorial.
 
-- **[Tutorial #1 – How to Build Your First Application with Quick](/tiny-url)**
+- **[Tutorial #1 – How to build your first application with Quick](/tiny-url)**
 - **[Tutorial #2 - Real-time monitoring and analytics](/carsharing)**
 - **[Tutorial #3 - Real-time customer profiles](/profile-store)**
