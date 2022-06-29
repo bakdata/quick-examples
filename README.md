@@ -8,8 +8,8 @@ More information you can find in [our website](https://d9p.io/).
 This is the examples repository of Quick.
 It contains the source code of the tutorials in the [Quick documentation](https://bakdata.github.io/quick/latest/user/examples/). 
 
-To find the files and commands for each example, click on the name of the tutorial.
+You find the files and commands for each example following the links below.
 
-- **[Tutorial #1 – How to build your first application with Quick](/tiny-url)**
+- **[Tutorial #1 – TinyURL](/tiny-url)**
 - **[Tutorial #2 - Real-time monitoring and analytics](/carsharing)**
 - **[Tutorial #3 - Real-time customer profiles](/profile-store)**
