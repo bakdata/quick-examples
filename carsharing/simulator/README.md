@@ -15,6 +15,23 @@ docker run -t -v "${PWD}:/data" osrm/osrm-backend:v5.22.0 osrm-contract /data/be
 ```
 Now you can host the api with `docker-compose`.
 
+## Setup Quick
+First, you need to deploy Quick in your Kubernetes cluster. The easiest way to get started is using the steps in [Stup Quick documentation](https://bakdata.github.io/quick/0.8/user/getting-started/setup-quick/#setup-quick).
+
+After successfully deploying Quick, it is time to create the necessary resources. To create the topics and gateway, you can use the [quick-cli](https://github.com/bakdata/quick-cli) tool. Here are the steps for creating these resources:
+
+1. Create a gateway. You can find the schema under the `quick` folder.
+    ```shell
+    quick gateway create car-sharing -s schema.graphql
+    ```
+
+2. Create the topics:
+    ```shell
+    quick topic create vehicle -k string -v schema --schema car-sharing.Vehicle &&
+    quick topic create trip -k string -v schema --schema car-sharing.Trip &&
+    quick topic create status -k string -v schema --schema car-sharing.Status
+    ```
+
 ## Generate vehicles and status
 
 In the first step, we generate the data and write it to files:
