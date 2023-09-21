@@ -1,8 +1,14 @@
-type Query {
-  fetchCountOfToken(token: String): TinyUrlCount
-}
+   type Query {
+    fetchCountOfToken(token: String): TinyUrlCount
+    fetchAll: [TinyUrl] @topic(name: "tiny-url")
+   }
 
-type TinyUrlCount {
-  url: String @topic(name: "tiny-url", keyArgument: "token")
-  count: Long @topic(name: "count-fetch", keyArgument: "token")
-}
+   type TinyUrl {
+       token: String!
+       url: String!
+   }
+
+   type TinyUrlCount {
+       tinyUrl: TinyUrl @topic(name: "tiny-url", keyArgument: "token")
+       count: Long @topic(name: "count-fetch", keyArgument: "token")
+   }
